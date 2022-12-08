@@ -834,7 +834,10 @@ let dynamic_link_proto = {
   allow(response, target_id) {
     if(typeof(response) != "function" && target_id == null ) {
       throw new Error("Unable to build dynamic link, no target specified.");
-    } else if(this.game().getTarget(target_id) == null) {
+    }
+
+    const target = this.game().getTarget(target_id);
+    if(this.game().getTarget(target_id) == null) {
       throw new Error("Unable to build dynamic link, no card or scene '" + target_id + "' exists in the game.");
     }
 
@@ -843,7 +846,8 @@ let dynamic_link_proto = {
     if(typeof(response) == "function") {
       this.markup = response();
     } else {
-      this.markup = "<a href=\"javascript:void(0)\" data-target=\"" + target_id + "\">" + response + "</a>";
+      const data_op = target instanceof RezScene ? ' data-op="shift" ' : '';
+      this.markup = "<a href=\"javascript:void(0)\" data-target=\"" + target_id + "\"" + data_op + ">" + response + "</a>";
     }
   },
 

@@ -91,7 +91,7 @@
 
   @card troll_attacks begin
     content: """
-    A huge troll attacks you. [[Run Away|scene_one]]
+    A huge troll attacks you. [[>Run Away|scene_one]]
     """
   end
 
